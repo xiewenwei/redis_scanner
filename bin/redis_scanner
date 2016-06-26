@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'optparse'
+require 'redis_scanner'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: redis_scanner [options]"
+
+  opts.on("-f FILE", "--file FILE", "Output file") do |v|
+    options[:file] = v
+  end
+
+  opts.on("-m MATCH", "--match MATCH", "Scan pattern") do |v|
+    options[:match] = v
+  end
+
+  # redis client options
+  # -h <hostname>      Server hostname (default: 127.0.0.1).
+  # -p <port>          Server port (default: 6379).
+  # -s <socket>        Server socket (overrides hostname and port).
+  # -a <password>      Password to use when connecting to the server.
+  # -n <db>            Database number.
+  opts.on("-h HOST", "--host HOST", "Server hostname (default: 127.0.0.1)") do |v|
+    options[:host] = v
+  end
+
+  opts.on("-p PORT", "--port PORT", "Server port (default: 6379)") do |v|
+    options[:port] = v
+  end
+
+  opts.on("-s SOCKET", "--socket SOCKET", "Server socket (overrides hostname and port)") do |v|
+    options[:socket] = v
+  end
+
+  opts.on("-a PASSWORD", "--password PASSWORD", "Password to use when connecting to the server.") do |v|
+    options[:password] = v
+  end
+
+  opts.on("-n DB", "--db DB", "Database number") do |v|
+    options[:db] = v
+  end
+
+end.parse!
+
+# puts "options is #{options.inspect}"
+
+RedisScanner.scan options
