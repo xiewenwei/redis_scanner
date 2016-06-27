@@ -36,12 +36,15 @@ module RedisScanner
     end
 
     def create_progress_bar
-      ProgressBar.create(
+      total = total_keys
+      bar = ProgressBar.create(
         title: "Keys",
         format: '%a %bᗧ%i %p%% %t',
         progress_mark: ' ',
         remainder_mark: '･',
-        total: total_keys)
+        total: total)
+      bar.log "total keys is #{total}"
+      bar
     end
 
     def scan
