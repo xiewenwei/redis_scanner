@@ -4,7 +4,6 @@ require "redis_scanner/redis_wrapper"
 require "redis_scanner/engine"
 require "redis_scanner/formatter"
 require "redis"
-require "terminal-table"
 
 module RedisScanner
   def self.scan(options)

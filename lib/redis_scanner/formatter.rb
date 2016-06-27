@@ -1,3 +1,5 @@
+require "terminal-table"
+
 module RedisScanner
   class Formatter
     def initialize(options)
