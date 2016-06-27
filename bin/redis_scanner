@@ -21,6 +21,11 @@ OptionParser.new do |opts|
     options[:limit] = v.to_i
   end
 
+  options[:detail] = false
+  opts.on("-d", "--detail", "Show detail info(type & size)") do |v|
+    options[:detail] = v
+  end
+
   # redis client options
   # -h <hostname>      Server hostname (default: 127.0.0.1).
   # -p <port>          Server port (default: 6379).

@@ -1,5 +1,6 @@
 require "redis_scanner/version"
 require "redis_scanner/pattern"
+require "redis_scanner/redis_wrapper"
 require "redis_scanner/engine"
 require "redis"
 

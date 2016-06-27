@@ -11,12 +11,6 @@ class EngineScanTest < Minitest::Test
     @redis.flushdb
   end
 
-  def test_total_keys
-    setup_redis_data(@redis)
-    engine = RedisScanner::Engine.new(@redis, @redis_options)
-    assert_equal 6, engine.send(:total_keys)
-  end
-
   def test_run_without_match
     setup_redis_data(@redis)
     engine = RedisScanner::Engine.new(@redis, @redis_options)

@@ -5,7 +5,7 @@ class EnginePatternTest < Minitest::Test
     patterns = []
     [["b", 1], ["a", 1,], ["c", 3], ["k", 1], ["f", 2]].each do |k, v|
       p = RedisScanner::Pattern.new(k)
-      p.count = v
+      p.total = v
       patterns << p
     end
     result = patterns.sort.map(&:to_s)

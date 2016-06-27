@@ -3,7 +3,7 @@ require "ruby-progressbar"
 module RedisScanner
   class Engine
     def initialize(redis, options)
-      @redis = redis
+      @redis = RedisWrapper.new(redis, options)
       @options = options
     end
 
@@ -14,18 +14,8 @@ module RedisScanner
 
     private
 
-    def total_keys
-      ret = 0
-      if (info = @redis.info) && (str = info["db#{@options[:db].to_i}"])
-        if m = str.scan(/keys=(\d+)/)
-          ret = m.flatten.first.to_i
-        end
-      end
-      ret
-    end
-
     def create_progress_bar
-      total = total_keys
+      total = @redis.total_keys
       bar = ProgressBar.create(
         title: "Keys",
         format: '%a %bᗧ%i %p%% %t',
@@ -49,7 +39,12 @@ module RedisScanner
         end
         result.each do |key|
           pattern = extract_pattern(key)
-          stat[pattern].increment
+          if @options[:detail]
+            type, size = @redis.get_type_and_size(key)
+            stat[pattern].increment key, type, size
+          else
+            stat[pattern].increment key
+          end
           bar.increment
         end
         cursor = cursor.to_i
