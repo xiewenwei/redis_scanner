@@ -2,25 +2,27 @@ require "redis_scanner/version"
 require "redis_scanner/pattern"
 require "redis_scanner/redis_wrapper"
 require "redis_scanner/engine"
+require "redis_scanner/formatter"
 require "redis"
+require "terminal-table"
 
 module RedisScanner
   def self.scan(options)
     redis = Redis.new extract_redis_options(options)
     engine = Engine.new redis, options
-    result = engine.run
-    output_result(result, options)
+    patterns = engine.run
+    output_result(patterns, options)
   end
 
-  def self.output_result(result, options)
+  def self.output_result(patterns, options)
+    formatter = Formatter.new(options)
+    result = formatter.format patterns
     if options[:file]
       File.open(options[:file], "w") do |file|
-        result.each { |pattern| file.puts pattern }
+        file.puts result
       end
     else
-      puts "=========result is========="
-      result.each { |pattern| puts pattern }
-      puts "==========================="
+      puts result
     end
   end
 

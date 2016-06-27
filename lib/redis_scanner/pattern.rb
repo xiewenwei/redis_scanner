@@ -63,12 +63,15 @@ module RedisScanner
     def to_s
       ret = "#{name} #{total}"
       if @items.size > 0
-        @items.values.sort.each do |item|
+        sorted_items.each do |item|
           ret << "\n  #{item}"
         end
       end
       ret
     end
 
+    def sorted_items
+      @items.values.sort
+    end
   end
 end

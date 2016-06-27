@@ -26,6 +26,11 @@ OptionParser.new do |opts|
     options[:detail] = v
   end
 
+  options[:format] = 'table'
+  opts.on("-t FORMAT", "--format FORMAT", "Formt(simple or talbe. default is table)") do |v|
+    options[:format] = v
+  end
+
   # redis client options
   # -h <hostname>      Server hostname (default: 127.0.0.1).
   # -p <port>          Server port (default: 6379).
