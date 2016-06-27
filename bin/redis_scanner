@@ -9,12 +9,16 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: redis_scanner [options]"
 
-  opts.on("-f FILE", "--file FILE", "Output file") do |v|
+  opts.on("-f FILE", "--file FILE", "Output to file") do |v|
     options[:file] = v
   end
 
-  opts.on("-m MATCH", "--match MATCH", "Scan pattern") do |v|
+  opts.on("-m MATCH", "--match MATCH", "Only scan the pattern") do |v|
     options[:match] = v
+  end
+
+  opts.on("-l LIMIT", "--limit LIMIT", "Only show top <limit> keys") do |v|
+    options[:limit] = v.to_i
   end
 
   # redis client options

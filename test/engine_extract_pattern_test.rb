@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EngineResolvePatternTest < Minitest::Test
+class EngineExtractPatternTest < Minitest::Test
   def setup
     @engine = RedisScanner::Engine.new(nil, {})
   end
@@ -11,7 +11,7 @@ class EngineResolvePatternTest < Minitest::Test
       ["user:1", "user:<id>"],
       ["p:012:ok", "p:<id>:ok"]
     ].each do |key, pattern|
-      assert_equal pattern, @engine.send(:resolve_pattern, key)
+      assert_equal pattern, @engine.send(:extract_pattern, key)
     end
   end
 
@@ -21,7 +21,7 @@ class EngineResolvePatternTest < Minitest::Test
       ["user:ddfaf606-d710-11e1-aab4-782bcb6589d5", "user:<uuid>"],
       ["p:ddfaf606-d710-11e1-aab4-782bcb6589d5:ok", "p:<uuid>:ok"]
     ].each do |key, pattern|
-      assert_equal pattern, @engine.send(:resolve_pattern, key)
+      assert_equal pattern, @engine.send(:extract_pattern, key)
     end
   end
 
@@ -31,7 +31,7 @@ class EngineResolvePatternTest < Minitest::Test
       ["user:2016-04-03", "user:<date>"],
       ["p:2015-05-03:ok", "p:<date>:ok"]
     ].each do |key, pattern|
-      assert_equal pattern, @engine.send(:resolve_pattern, key)
+      assert_equal pattern, @engine.send(:extract_pattern, key)
     end
   end
 
@@ -41,7 +41,7 @@ class EngineResolvePatternTest < Minitest::Test
       ["user1", "user1"],
       ["12ok", "12ok"]
     ].each do |key, pattern|
-      assert_equal pattern, @engine.send(:resolve_pattern, key)
+      assert_equal pattern, @engine.send(:extract_pattern, key)
     end
   end
 end

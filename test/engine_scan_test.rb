@@ -22,7 +22,7 @@ class EngineScanTest < Minitest::Test
     engine = RedisScanner::Engine.new(@redis, @redis_options)
     result = engine.run
     assert_equal [["u:<id>:name", 2], ["test", 1], ["u:<date>", 1],
-      ["u:<uuid>:age", 1], ["user", 1]], result
+      ["u:<uuid>:age", 1], ["user", 1]], result.map(&:to_a)
   end
 
   def test_run_with_match
@@ -30,6 +30,6 @@ class EngineScanTest < Minitest::Test
     engine = RedisScanner::Engine.new(@redis, @redis_options.merge({match: "u:*"}))
     result = engine.run
     assert_equal [["u:<id>:name", 2], ["u:<date>", 1],
-      ["u:<uuid>:age", 1]], result
+      ["u:<uuid>:age", 1]], result.map(&:to_a)
   end
 end

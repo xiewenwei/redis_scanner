@@ -1,4 +1,5 @@
 require "redis_scanner/version"
+require "redis_scanner/pattern"
 require "redis_scanner/engine"
 require "redis"
 
@@ -13,11 +14,11 @@ module RedisScanner
   def self.output_result(result, options)
     if options[:file]
       File.open(options[:file], "w") do |file|
-        result.each { |key, count| file.puts "#{key} #{count}" }
+        result.each { |pattern| file.puts pattern }
       end
     else
       puts "=========result is========="
-      result.each { |key, count| puts "#{key} #{count}" }
+      result.each { |pattern| puts pattern }
       puts "==========================="
     end
   end
