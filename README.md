@@ -19,10 +19,30 @@ You should install [ruby](https://www.ruby-lang.org/) first.
 
 ## Usage
 
-* Use default options
+* Get started
+
+You can run it directly after install. It will scan local redis instance when you just input *redis_scanner*.
 
 ```shell
 redis_scanner
+```
+
+The Output is like this:
+
+```shell
+=========result is=========
+demo:user:<id>:counter 10000
+u:<uuid>:pf 52
+sidekiq_demo:stat:failed:<date> 4
+sidekiq_demo:stat:processed:<date> 4
+_sp_one:queue:default 1
+bh:queues 1
+bh:retry 1
+bh:stat:failed 1
+bh:stat:processed 1
+bus_app:app_two 1
+...
+===========================
 ```
 
 * Scan keys with some pattern
