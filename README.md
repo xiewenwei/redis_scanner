@@ -4,6 +4,8 @@ RedisScanner is a tiny tool for scanning all redis keys and creating statistic r
 
 * Scans keys using *scan* replacing *keys* command.
 * Creates statistic result by key's pattern.
+* Provide key's detail information which includes type and size.
+* Provide table format output..
 
 ## Installation
 
@@ -30,19 +32,40 @@ redis_scanner
 The Output is like this:
 
 ```shell
-=========result is=========
-demo:user:<id>:counter 10000
-u:<uuid>:pf 52
-sidekiq_demo:stat:failed:<date> 4
-sidekiq_demo:stat:processed:<date> 4
-_sp_one:queue:default 1
-bh:queues 1
-bh:retry 1
-bh:stat:failed 1
-bh:stat:processed 1
-bus_app:app_two 1
++------------------------------------+-------+
+| Key                                | Count |
++------------------------------------+-------+
+| demo:user:<id>:counter             | 10000 |
+| u:<uuid>:pf                        |    52 |
+| sidekiq_demo:stat:failed:<date>    |     4 |
+| sidekiq_demo:stat:processed:<date> |     4 |
+| _sp_one:queue:default              |     1 |
+| bh:queues                          |     1 |
 ...
-===========================
++------------------------------------+-------+
+```
+
+```shell
+redis_scanner -d
+```
+
+The Output is like this:
+
+```shell
++------------------------------------+-------+--------+---------+
+| Key                                | Count | Size   | AvgSize |
++------------------------------------+-------+--------+---------+
+| demo:user:<id>:counter             | 10000 |        |         |
+|  > string                          | 10000 | 927510 |   92.75 |
+| u:<uuid>:pf                        |    52 |        |         |
+|  > hash                            |    52 |    108 |    2.08 |
+| sidekiq_demo:stat:failed:<date>    |     4 |        |         |
+|  > string                          |     4 |      5 |    1.25 |
+| sidekiq_demo:stat:processed:<date> |     4 |        |         |
+|  > string                          |     4 |      6 |     1.5 |
+| _sp_one:queue:default              |     1 |        |         |
+|  > list                            |     1 |      1 |     1.0 |
++------------------------------------+-------+--------+---------+
 ```
 
 * Scan keys with some pattern
