@@ -33,7 +33,6 @@ module RedisScanner
   class Pattern
     attr_reader :name
     attr_accessor :total
-    attr_reader :items
 
     def initialize(name)
       @name = name
@@ -41,7 +40,7 @@ module RedisScanner
       @items = Hash.new {|hash, key| hash[key] = PatternItem.new(key) }
     end
 
-    def increment(key, type = nil, size = nil)
+    def increment(type = nil, size = nil)
       @total += 1
       if type && size
         @items[type].increment(size)

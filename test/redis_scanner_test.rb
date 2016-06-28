@@ -2,20 +2,21 @@ require 'test_helper'
 
 class RedisScannerTest < Minitest::Test
   def setup
-    @redis_options = {host: '127.0.0.1', port: 6379, db: 9}
-    @redis = Redis.new @redis_options
-    @redis.flushdb
+    @options = {host: '127.0.0.1', port: 6379, db: 9}
+    @redis = RedisScanner::Redis.new @options
+    @engine = RedisScanner::Engine.new(@redis, @options)
+    @redis.client.flushdb
   end
 
   def teardown
-    @redis.flushdb
+    @redis.client.flushdb
   end
 
   def test_scan_to_file
-    setup_redis_data(@redis)
+    setup_redis_data(@redis.client)
 
     file = "test/result.txt"
-    RedisScanner.scan @redis_options.merge(file: file)
+    RedisScanner.scan @options.merge(file: file)
     assert File.exists? file
     File.delete file
   end

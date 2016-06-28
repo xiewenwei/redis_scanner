@@ -1,13 +1,14 @@
 require "redis_scanner/version"
+require "redis_scanner/rule"
 require "redis_scanner/pattern"
-require "redis_scanner/redis_wrapper"
+require "redis_scanner/redis"
 require "redis_scanner/engine"
 require "redis_scanner/formatter"
 require "redis"
 
 module RedisScanner
   def self.scan(options)
-    redis = Redis.new extract_redis_options(options)
+    redis = Redis.new options
     engine = Engine.new redis, options
     patterns = engine.run
     output_result(patterns, options)
@@ -25,11 +26,4 @@ module RedisScanner
     end
   end
 
-  def self.extract_redis_options(options)
-    result = {}
-    [:host, :port, :socket, :password, :db].each do |key|
-      result[key] = options[key]
-    end
-    result
-  end
 end

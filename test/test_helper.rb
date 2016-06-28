@@ -4,12 +4,22 @@ require 'redis_scanner'
 require 'minitest/autorun'
 
 class Minitest::Test
-  def setup_redis_data(redis)
-    redis.set "u:1:name", "vincent"
-    redis.set "u:12:name", "susu"
-    redis.set "u:2016-08-12", "ok"
-    redis.set "u:ddfaf6ba-d710-11e1-aab4-782bcb6589d5:age", "24"
-    redis.set "test", "haha"
-    redis.set "user", "good"
+  def setup_redis_data(client)
+    client.set "u:1:name", "vincent"
+    client.set "u:12:name", "susu"
+    client.set "u:2016-08-12", "ok"
+    client.set "u:ddfaf6ba-d710-11e1-aab4-782bcb6589d5:age", "24"
+    client.set "test", "haha"
+    client.set "user", "good"
+  end
+
+  def setup_patterns
+    patterns = []
+    [["b", 1], ["a", 1,], ["c", 3], ["k", 1], ["f", 2]].each do |k, v|
+      pt = RedisScanner::Pattern.new(k)
+      pt.total = v
+      patterns << pt
+    end
+    patterns
   end
 end
