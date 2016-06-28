@@ -46,12 +46,12 @@ module RedisScanner
           else
             stat[pattern].increment
           end
-          bar.increment
+          bar.increment unless bar.finished?
         end
         cursor = cursor.to_i
         break if cursor == 0
       end
-      bar.finish
+      bar.finish unless bar.finished?
 
       stat
     end

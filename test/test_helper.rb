@@ -14,12 +14,10 @@ class Minitest::Test
   end
 
   def setup_patterns
-    patterns = []
-    [["b", 1], ["a", 1,], ["c", 3], ["k", 1], ["f", 2]].each do |k, v|
+    [["b", 1], ["a", 1,], ["c", 3], ["k", 1], ["f", 2]].map do |k, v|
       pt = RedisScanner::Pattern.new(k)
       pt.total = v
-      patterns << pt
+      pt
     end
-    patterns
   end
 end
