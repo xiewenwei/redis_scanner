@@ -46,26 +46,26 @@ The Output is like this:
 ```
 
 ```shell
-redis_scanner -d
+redis_scanner -d -l 10
 ```
 
 The Output is like this:
 
 ```shell
-+------------------------------------+-------+--------+---------+
-| Key                                | Count | Size   | AvgSize |
-+------------------------------------+-------+--------+---------+
-| demo:user:<id>:counter             | 10000 |        |         |
-|  > string                          | 10000 | 927510 |   92.75 |
-| u:<uuid>:pf                        |    52 |        |         |
-|  > hash                            |    52 |    108 |    2.08 |
-| sidekiq_demo:stat:failed:<date>    |     4 |        |         |
-|  > string                          |     4 |      5 |    1.25 |
-| sidekiq_demo:stat:processed:<date> |     4 |        |         |
-|  > string                          |     4 |      6 |     1.5 |
-| _sp_one:queue:default              |     1 |        |         |
-|  > list                            |     1 |      1 |     1.0 |
-+------------------------------------+-------+--------+---------+
++------------------------------------+--------+-------+--------+---------+
+| Key                                | Type   | Count | Size   | AvgSize |
++------------------------------------+--------+-------+--------+---------+
+| demo:user:<id>:counter             | string | 10000 | 927510 |   92.75 |
+| u:<uuid>:pf                        | hash   |    52 |    108 |    2.08 |
+| sidekiq_demo:stat:failed:<date>    | string |     4 |      5 |    1.25 |
+| sidekiq_demo:stat:processed:<date> | string |     4 |      6 |     1.5 |
+| _sp_one:queue:default              | list   |     1 |      1 |     1.0 |
+| bh:queues                          | set    |     1 |      1 |     1.0 |
+| bh:retry                           | zset   |     1 |      1 |     1.0 |
+| bh:stat:failed                     | string |     1 |      1 |     1.0 |
+| bh:stat:processed                  | string |     1 |      1 |     1.0 |
+| bus_app:app_two                    | hash   |     1 |      1 |     1.0 |
++------------------------------------+--------+-------+--------+---------+
 ```
 
 * Scan keys with some pattern
