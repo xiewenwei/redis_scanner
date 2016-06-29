@@ -27,7 +27,7 @@ OptionParser.new do |opts|
   end
 
   options[:format] = 'table'
-  opts.on("-t FORMAT", "--format FORMAT", "Formt(simple or talbe. default is table)") do |v|
+  opts.on("-t FORMAT", "--format FORMAT", "Format(simple or talbe. default is table)") do |v|
     options[:format] = v
   end
 
