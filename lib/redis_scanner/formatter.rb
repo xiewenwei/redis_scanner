@@ -41,9 +41,8 @@ module RedisScanner
 
       patterns.each do |pattern|
         if with_detail
-          rows << [pattern.name, pattern.total, "", ""]
           pattern.sorted_items.each do |item|
-            rows << [" > #{item.type}", item.count, item.size, item.avg_size]
+            rows << [pattern.name, item.type, item.count, item.size, item.avg_size]
           end
         else
           rows << [pattern.name, pattern.total]
@@ -52,17 +51,19 @@ module RedisScanner
         break if touch_limit?(count)
       end
 
-      headings = ['Key', 'Count']
+
       if with_detail
-        headings << "Size"
-        headings << "AvgSize"
+        headings = %w(Key Type Count Size AvgSize)
+      else
+        headings = %w(Key Count)
       end
 
       table = Terminal::Table.new headings: headings, rows: rows
-      table.align_column(1, :right)
+
       if with_detail
-        table.align_column(2, :right)
-        table.align_column(3, :right)
+        4.times {|i| table.align_column(i+2, :right) }
+      else
+        table.align_column(1, :right)
       end
 
       table.to_s
