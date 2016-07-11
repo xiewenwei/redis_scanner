@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 module RedisScanner
   class PatternItem
     attr_reader :type, :count, :size

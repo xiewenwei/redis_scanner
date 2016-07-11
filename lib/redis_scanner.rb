@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require "redis_scanner/version"
 require "redis_scanner/rule"
 require "redis_scanner/pattern"

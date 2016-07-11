@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require "ruby-progressbar"
 
 module RedisScanner
@@ -55,6 +57,5 @@ module RedisScanner
 
       stat
     end
-
   end
 end

@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 module RedisScanner
   class Redis
     attr_reader :client

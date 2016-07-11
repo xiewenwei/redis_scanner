@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require 'test_helper'
 
 class RuleTest < Minitest::Test
@@ -43,5 +45,10 @@ class RuleTest < Minitest::Test
     ].each do |key, pattern|
       assert_equal pattern, @rule.extract_pattern(key)
     end
+  end
+
+  def test_invalid_byte_sequence
+    key = "\xAB\xC1ok\xD6\xF7\xD3"
+    assert_equal "??ok???", @rule.extract_pattern(key)
   end
 end
