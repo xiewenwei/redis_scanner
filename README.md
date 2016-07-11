@@ -1,4 +1,8 @@
-# RedisScanner
+# RedisScanner [![Build Status][travis-image]][travis-link]]
+
+[travis-image]: https://travis-ci.org/xiewenwei/redis_scanner.svg?branch=master
+[travis-link]: http://travis-ci.org/xiewenwei/redis_scanner
+[travis-home]: http://travis-ci.org/
 
 RedisScanner is a tiny tool for scanning all redis keys and creating statistic result. The features are the followings.
 

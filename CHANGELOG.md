@@ -1,3 +1,11 @@
+## v0.1.5
+ * Resolve invalid byte sequence key.
+ * Add travis CI support.
+ * Add MIT LICENSE.
+
+## v0.1.4
+ * Display key and type in one line.
+
 ## v0.1.3
 
  * Provide key's detail information which includes type and size.
