@@ -1,4 +1,4 @@
-# RedisScanner [![Build Status][travis-image]][travis-link]]
+# RedisScanner [![Build Status][travis-image]][travis-link]
 
 [travis-image]: https://travis-ci.org/xiewenwei/redis_scanner.svg?branch=master
 [travis-link]: http://travis-ci.org/xiewenwei/redis_scanner
