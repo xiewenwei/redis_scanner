@@ -1,3 +1,6 @@
+## v0.1.6
+ * Support multiple patterns for one key.
+
 ## v0.1.5
  * Resolve invalid byte sequence key.
  * Add travis CI support.

@@ -18,9 +18,8 @@ module RedisScanner
     def extract_pattern(key)
       key = force_valid_key(key)
       @rules.each do |rule, replacer|
-        if m = rule.match(key)
+        while (m = rule.match(key))
           key = key.sub(m[1], replacer)
-          break
         end
       end
       key

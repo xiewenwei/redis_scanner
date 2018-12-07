@@ -11,6 +11,8 @@ class RuleTest < Minitest::Test
     [
       ["user:123:name", "user:<id>:name"],
       ["user:1", "user:<id>"],
+      ["user:1:a:4:ok", "user:<id>:a:<id>:ok"],
+      ["user:1:2", "user:<id>:<id>"],
       ["p:012:ok", "p:<id>:ok"]
     ].each do |key, pattern|
       assert_equal pattern, @rule.extract_pattern(key)
@@ -32,6 +34,16 @@ class RuleTest < Minitest::Test
       ["user:2015-04-03:name", "user:<date>:name"],
       ["user:2016-04-03", "user:<date>"],
       ["p:2015-05-03:ok", "p:<date>:ok"]
+    ].each do |key, pattern|
+      assert_equal pattern, @rule.extract_pattern(key)
+    end
+  end
+
+  def test_pattern_composite
+    [
+      ["user:123:name:45", "user:<id>:name:<id>"],
+      ["start:123:user:2016-04-03", "start:<id>:user:<date>"],
+      ["p:12:45:2016-05-12:ddfaf606-d710-11e1-aab4-782bcb6589d5", "p:<id>:<id>:<date>:<uuid>"]
     ].each do |key, pattern|
       assert_equal pattern, @rule.extract_pattern(key)
     end
